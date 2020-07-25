@@ -1,7 +1,8 @@
 import 'package:date_format/date_format.dart';
 
 class KeicyDateTime {
-  static List<String> initFormat = [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss];
+  // static List<String> initFormat = [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss];
+  static List<String> initFormat = [yyyy, '-', mm, '-', dd, ' '];
 
   static DateTime convertMillisecondsToDateTime(int ms) {
     if (ms == null) return null;
