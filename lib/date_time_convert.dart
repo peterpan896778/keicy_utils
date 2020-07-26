@@ -1,30 +1,9 @@
 import 'package:date_format/date_format.dart';
+import 'package:date_time_format/date_time_format.dart';
 
 class KeicyDateTime {
   // static List<String> initFormat = [yyyy, '-', mm, '-', dd, ' ', HH, ':', nn, ':', ss];
   static List<String> initFormat = [yyyy, '-', mm, '-', dd, ' '];
-
-  static DateTime convertMillisecondsToDateTime(int ms) {
-    if (ms == null) return null;
-    return DateTime.fromMillisecondsSinceEpoch(ms);
-  }
-
-  static int convertDateStringToMilliseconds(String dateString, {datePattern = '-', timePattern = ":"}) {
-    if (dateString == null || dateString == "") return null;
-
-    return convertDateStringToDateTime(dateString).millisecondsSinceEpoch;
-  }
-
-  static String convertMillisecondsToDateString(int ms, {List<String> formats}) {
-    if (formats == null || formats.length == 0) formats = initFormat;
-    DateTime dateTime = convertMillisecondsToDateTime(ms);
-    return convertDateTimeToDateString(dateTime, formats: formats);
-  }
-
-  static String convertDateTimeToDateString(DateTime dt, {List<String> formats}) {
-    if (formats == null || formats.length == 0) formats = initFormat;
-    return formatDate(dt, formats);
-  }
 
   static DateTime convertDateStringToDateTime(String strDate, {datePattern = '-', timePattern = ":"}) {
     if (strDate == "" || strDate == null) return null;
@@ -43,10 +22,69 @@ class KeicyDateTime {
     );
   }
 
-  static String getDateItemFromDateString(String strDate, List<String> formats, {datePattern = '-', timePattern = ":"}) {
-    if (formats == null || formats.length == 0) formats = initFormat;
+  static int convertDateStringToMilliseconds(String dateString, {datePattern = '-', timePattern = ":"}) {
+    if (dateString == null || dateString == "") return null;
+    return convertDateStringToDateTime(dateString, datePattern: datePattern, timePattern: timePattern).millisecondsSinceEpoch;
+  }
 
-    DateTime dateTime = convertDateStringToDateTime(strDate);
+  static DateTime convertMillisecondsToDateTime(int ms) {
+    if (ms == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch(ms);
+  }
+
+  static String convertMillisecondsToDateString(int ms, {List<String> formats}) {
+    if (ms == null) return null;
+    if (formats == null || formats.length == 0) formats = initFormat;
+    DateTime dateTime = convertMillisecondsToDateTime(ms);
     return convertDateTimeToDateString(dateTime, formats: formats);
+  }
+
+  static String convertDateTimeToDateString(DateTime dt, {List<String> formats}) {
+    if (dt == null) return null;
+    if (formats == null || formats.length == 0) formats = initFormat;
+    return formatDate(dt, formats);
+  }
+
+  static int convertDateTimeToMilliseconds(DateTime dt) {
+    return dt.millisecondsSinceEpoch;
+  }
+
+  static List<DateTime> getDateTimesForWeek({DateTime dt}) {
+    if (dt == null) dt = DateTime.now();
+    switch (dt.weekday) {
+      case 1:
+        return [dt, dt.add(Duration(days: 6))];
+        break;
+      case 2:
+        return [dt.subtract(Duration(days: 1)), dt.add(Duration(days: 5))];
+        break;
+      case 3:
+        return [dt.subtract(Duration(days: 2)), dt.add(Duration(days: 4))];
+        break;
+      case 4:
+        return [dt.subtract(Duration(days: 3)), dt.add(Duration(days: 3))];
+        break;
+      case 5:
+        return [dt.subtract(Duration(days: 4)), dt.add(Duration(days: 2))];
+        break;
+      case 6:
+        return [dt.subtract(Duration(days: 5)), dt.add(Duration(days: 1))];
+        break;
+      case 7:
+        return [dt.subtract(Duration(days: 6)), dt];
+        break;
+      default:
+    }
+
+    return [dt, dt];
+  }
+
+  static List<DateTime> getDateTimesForMonth({DateTime dt}) {
+    if (dt == null) dt = DateTime.now();
+
+    return [
+      DateTime(dt.year, dt.month, 1),
+      DateTime(dt.year, dt.month + 1, 1).subtract(Duration(days: 1)),
+    ];
   }
 }
