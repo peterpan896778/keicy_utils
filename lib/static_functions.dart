@@ -22,21 +22,23 @@ import 'package:path/path.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path_provider/path_provider.dart';
 
-/// Creates an path to a temporary file.
-Future<String> tempFile({String fileName, String ext}) async {
-  if (fileName == null) {
-    var uuid = Uuid();
-    fileName = uuid.v4();
+class KeicyStaticFunctions {
+  /// Creates an path to a temporary file.
+  Future<String> tempFile({String fileName, String ext}) async {
+    if (fileName == null) {
+      var uuid = Uuid();
+      fileName = uuid.v4();
+    }
+
+    if (ext != null) {
+      fileName += '.$ext';
+    }
+
+    var tmpDir = await getTemporaryDirectory();
+    var path = join(tmpDir.path, fileName);
+    var parent = dirname(path);
+    Directory(parent).createSync(recursive: true);
+
+    return path;
   }
-
-  if (ext != null) {
-    fileName += '.$ext';
-  }
-
-  var tmpDir = await getTemporaryDirectory();
-  var path = join(tmpDir.path, fileName);
-  var parent = dirname(path);
-  Directory(parent).createSync(recursive: true);
-
-  return path;
 }
