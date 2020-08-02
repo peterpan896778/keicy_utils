@@ -24,7 +24,7 @@ import 'package:path_provider/path_provider.dart';
 
 class KeicyStaticFunctions {
   /// Creates an path to a temporary file.
-  Future<String> tempFile({String fileName, String ext}) async {
+  static Future<String> tempFile({String fileName, String ext}) async {
     if (fileName == null) {
       var uuid = Uuid();
       fileName = uuid.v4();
