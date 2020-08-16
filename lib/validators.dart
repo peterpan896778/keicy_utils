@@ -15,6 +15,10 @@ class KeicyValidators {
     r'^[a-zA-Z]{1}.+$',
   );
 
+  static final RegExp firebaseStorageFileRegExp = RegExp(
+    r'(.appspot.com\/[a-z]\/)|(\?)',
+  );
+
   static bool isValidEmail(String email) {
     return emailRegExp.hasMatch(email);
   }
