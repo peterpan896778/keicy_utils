@@ -10,8 +10,17 @@ enum StorableDataType {
 }
 
 class LocalStorage {
-  static Future<void> storeDataToLocal({@required String key, @required dynamic value, @required StorableDataType type}) async {
-    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
+  static final LocalStorage _instance = LocalStorage();
+  static LocalStorage get instance => _instance;
+
+  SharedPreferences _sharedPreferences;
+  SharedPreferences get sharedPreferences => _sharedPreferences;
+
+  init() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  Future<void> storeDataToLocal({@required String key, @required dynamic value, @required StorableDataType type}) async {
     switch (type) {
       case StorableDataType.String:
         await _sharedPreferences.setString(key, value);
@@ -32,8 +41,7 @@ class LocalStorage {
     }
   }
 
-  static Future<dynamic> getDataInLocal({@required String key, @required StorableDataType type}) async {
-    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
+  Future<dynamic> getDataInLocal({@required String key, @required StorableDataType type}) async {
     switch (type) {
       case StorableDataType.String:
         return _sharedPreferences.getString(key);
