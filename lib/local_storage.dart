@@ -20,28 +20,29 @@ class LocalStorage {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  Future<void> storeDataToLocal({@required String key, @required dynamic value, @required StorableDataType type}) async {
+  Future<bool> storeDataToLocal({@required String key, @required dynamic value, @required StorableDataType type}) async {
     switch (type) {
       case StorableDataType.String:
-        await _sharedPreferences.setString(key, value);
+        return await _sharedPreferences.setString(key, value);
         break;
       case StorableDataType.BOOL:
-        await _sharedPreferences.setBool(key, value);
+        return await _sharedPreferences.setBool(key, value);
         break;
       case StorableDataType.INT:
-        await _sharedPreferences.setInt(key, value);
+        return await _sharedPreferences.setInt(key, value);
         break;
       case StorableDataType.DOUBLE:
-        await _sharedPreferences.setDouble(key, value);
+        return await _sharedPreferences.setDouble(key, value);
         break;
       case StorableDataType.STRINGLIST:
-        await _sharedPreferences.setStringList(key, value);
+        return await _sharedPreferences.setStringList(key, value);
         break;
       default:
+        return false;
     }
   }
 
-  Future<dynamic> getDataInLocal({@required String key, @required StorableDataType type}) async {
+  dynamic getDataInLocal({@required String key, @required StorableDataType type}) {
     switch (type) {
       case StorableDataType.String:
         return _sharedPreferences.getString(key);
