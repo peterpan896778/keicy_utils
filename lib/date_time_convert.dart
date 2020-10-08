@@ -42,7 +42,7 @@ class KeicyDateTime {
   static String convertDateTimeToDateString({@required DateTime dateTime, String formats = initFormat}) {
     try {
       if (dateTime == null) return "";
-      return DateTimeFormat.format(dateTime, format: "Y-m-d");
+      return DateTimeFormat.format(dateTime, format: formats);
     } catch (e) {
       return "";
     }
