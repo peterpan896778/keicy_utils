@@ -1,20 +1,16 @@
 name: keicy_utils
 description: A new Flutter package project.
 version: 0.0.1
-author:
 homepage:
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   date_time_format: 
-  path_provider: 
-  shared_preferences: 
-  uuid: 
 
 dev_dependencies:
   flutter_test:
