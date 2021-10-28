@@ -9,13 +9,13 @@ class KeicyDateTime {
       if (dateString == "" || dateString == null) return null;
       List<String> listDateTime = dateString.split(" ");
       List<String> listDate = listDateTime[0].split(datePattern);
-      List<String>? listTime = (listDateTime.length == 2) ? listDateTime[1].split(timePattern) : null;
+      List<String>? listTime = (listDateTime.length == 2) ? listDateTime[1].split(timePattern) : [];
 
       DateTime dt = DateTime(
         int.parse((listDate.length >= 1 && listDate[0] != "") ? listDate[0].toString() : "0"),
         int.parse((listDate.length >= 2 && listDate[1] != "") ? listDate[1].toString() : "0"),
         int.parse((listDate.length >= 3 && listDate[2] != "") ? listDate[2].toString() : "0"),
-        int.parse((listTime!.length >= 1 && listTime[0] != "") ? listTime[0].toString() : "0"),
+        int.parse((listTime.length >= 1 && listTime[0] != "") ? listTime[0].toString() : "0"),
         int.parse((listTime.length >= 2 && listTime[1] != "") ? listTime[1].toString() : "0"),
         int.parse((listTime.length >= 3 && listTime[2] != "") ? listTime[2].toString() : "0"),
       );
